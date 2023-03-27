@@ -259,20 +259,20 @@ public function load(ObjectManager $manager): void
 
         $datas = [
             [
-                'date_emprunt' => DateTime::createFromFormat('Y-m-d H:i:s', '2020-02-01 10:00:00'),
-                'date_retour' => DateTime::createFromFormat('Y-m-d H:i:s', '2020-03-01 10:00:00'),
+                'dateEmprunt' => DateTime::createFromFormat('Y-m-d H:i:s', '2020-02-01 10:00:00'),
+                'dateRetour' => DateTime::createFromFormat('Y-m-d H:i:s', '2020-03-01 10:00:00'),
                 'emprunteur_id' => $emprunteur[0],
                 'livre_id' => $livre[0]
             ],
             [
-                'date_emprunt' => DateTime::createFromFormat('Y-m-d H:i:s', '2020-03-01 10:00:00'),
-                'date_retour' => DateTime::createFromFormat('Y-m-d H:i:s', '2020-04-01 10:00:00'),
+                'dateEmprunt' => DateTime::createFromFormat('Y-m-d H:i:s', '2020-03-01 10:00:00'),
+                'dateRetour' => DateTime::createFromFormat('Y-m-d H:i:s', '2020-04-01 10:00:00'),
                 'emprunteur_id' => $emprunteur[1],
                 'livre_id' => $livre[1]
             ],
             [
-                'date_emprunt' => DateTime::createFromFormat('Y-m-d H:i:s', '2020-04-01 10:00:00'),
-                'date_retour' => null,
+                'dateEmprunt' => DateTime::createFromFormat('Y-m-d H:i:s', '2020-04-01 10:00:00'),
+                'dateRetour' => null,
                 'emprunteur_id' => $emprunteur[2],
                 'livre_id' => $livre[2]
             ],
@@ -281,8 +281,8 @@ public function load(ObjectManager $manager): void
         foreach ($datas as $data) {
 
             $emprunt = new Emprunt();
-            $emprunt->setDateEmprunt($data['date_emprunt']);
-            $emprunt->setDateRetour($data['date_retour']);
+            $emprunt->setDateEmprunt($data['dateEmprunt']);
+            $emprunt->setDateRetour($data['dateRetour']);
             $emprunt->setEmprunteur($data['emprunteur_id']);
             $emprunt->setLivre($data['livre_id']);
 

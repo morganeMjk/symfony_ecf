@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Emprunteur;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -38,6 +39,82 @@ class EmprunteurRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+
+    // - la liste complète des emprunteurs, triée par ordre alphabétique de nom et prénom
+    /**
+     * @return Emprunteur[] Returns an array of Emprunteur objects
+     */
+    public function findAll(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.nom', 'ASC')
+            ->orderBy('e.prenom', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+    // - les données de l'emprunteur qui est relié au user dont l'id est `3`
+    /**
+     * @return Emprunteur[] Returns an array of Emprunteur objects
+     */
+    public function findByUserId(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->join('e.user', 'u')
+            ->andWhere('u.id = :id')
+            ->setParameter('id', 3)
+            ->orderBy('e.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+    // - la liste des emprunteurs dont le nom ou le prénom contient le mot clé `foo`, triée par ordre alphabétique de nom et prénom
+    /**
+     * @return Emprunteur[] Returns an array of Emprunteur objects
+     */
+    public function findByKeyword(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.nom LIKE :keyword')
+            ->setParameter('keyword', "%foo%")
+            ->orWhere('e.prenom LIKE :keyword')
+            ->setParameter('keyword', "%foo%")
+            ->orderBy('e.nom', 'ASC')
+            ->orderBy('e.prenom', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+
+
+
+//    /**
+//     * @return Emprunteur[] Returns an array of Emprunteur objects
+//     */
+//    public function findByExampleField($value): array
+//    {
+//        return $this->createQueryBuilder('e')
+//            ->andWhere('e.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->orderBy('e.id', 'ASC')
+//            ->setMaxResults(10)
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }
+
+
+
+
+
+
 
 //    /**
 //     * @return Emprunteur[] Returns an array of Emprunteur objects

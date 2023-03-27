@@ -15,10 +15,10 @@ class Emprunt
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_emprunt = null;
+    private ?\DateTimeInterface $dateEmprunt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $date_retour = null;
+    private ?\DateTimeInterface $dateRetour = null;
 
     #[ORM\ManyToOne(inversedBy: 'emprunts')]
     #[ORM\JoinColumn(nullable: false)]
@@ -35,24 +35,24 @@ class Emprunt
 
     public function getDateEmprunt(): ?\DateTimeInterface
     {
-        return $this->date_emprunt;
+        return $this->dateEmprunt;
     }
 
-    public function setDateEmprunt(\DateTimeInterface $date_emprunt): self
+    public function setDateEmprunt(\DateTimeInterface $dateEmprunt): self
     {
-        $this->date_emprunt = $date_emprunt;
+        $this->dateEmprunt = $dateEmprunt;
 
         return $this;
     }
 
     public function getDateRetour(): ?\DateTimeInterface
     {
-        return $this->date_retour;
+        return $this->dateRetour;
     }
 
-    public function setDateRetour(?\DateTimeInterface $date_retour): self
+    public function setDateRetour(?\DateTimeInterface $dateRetour): self
     {
-        $this->date_retour = $date_retour;
+        $this->dateRetour = $dateRetour;
 
         return $this;
     }

@@ -39,6 +39,55 @@ class LivreRepository extends ServiceEntityRepository
         }
     }
 
+    // - la liste complète de tous les livres, triée par ordre alphabétique de titre
+    /**
+     * @return Livre[] Returns an array of Livre objects
+     */
+    public function findAll(): array
+    {
+        return $this->createQueryBuilder('l')
+            ->orderBy('l.titre', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+
+    // - les données du livre dont l'id est `1`
+    /**
+     * @return Livre[] Returns an array of Livre objects
+     */
+    public function findById(): array
+    {
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.id = :id')
+            ->setParameter('id', 1)
+            ->orderBy('l.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+    // - la liste des livres dont le titre contient le mot clé `lorem`, triée par ordre alphabétique de titre
+    /**
+     * @return Livre[] Returns an array of Livre objects
+     */
+    public function findByKeyword(): array
+    {
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.titre LIKE :titre')
+            ->setParameter('titre', "%lorem%")
+            ->orderBy('l.titre', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+
+
 //    /**
 //     * @return Livre[] Returns an array of Livre objects
 //     */

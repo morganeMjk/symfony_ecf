@@ -39,6 +39,74 @@ class EmpruntRepository extends ServiceEntityRepository
         }
     }
 
+
+    // - la liste des 3 derniers emprunts au niveau chronologique, triée par ordre **décroissant** de date d'emprunt (le plus récent en premier)
+    /**
+     * @return Emprunt[] Returns an array of Emprunt objects
+     */
+    public function findLast(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.dateEmprunt', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+    // - la liste des emprunts de l'emprunteur dont l'id est `2`, triée par ordre **croissant** de date d'emprunt (le plus ancien en premier)
+    /**
+     * @return Emprunt[] Returns an array of Emprunt objects
+     */
+    public function findByBorrowerId(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->join('e.emprunteur', 'em')
+            ->andWhere('em.id = :id')
+            ->setParameter('id', 2)
+            ->orderBy('e.dateEmprunt', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
+
+    // - la liste des emprunts du livre dont l'id est `3`, triée par ordre **décroissant** de date d'emprunt (le plus récent en premier)
+    /**
+     * @return Emprunt[] Returns an array of Emprunt objects
+     */
+    public function findByBookId(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->join('e.livre', 'l')
+            ->andWhere('l.id = :id')
+            ->setParameter('id', 3)
+            ->orderBy('e.dateEmprunt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+    // - la liste des emprunts qui n'ont pas encore été retournés (c-à-d dont la date de retour est nulle), triée par ordre **croissant** de date d'emprunt (le plus ancien en premier)
+    /**
+     * @return Emprunt[] Returns an array of Emprunt objects
+     */
+    public function findNotReturn(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.dateRetour IS NULL')
+            ->orderBy('e.dateEmprunt', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+
+
+
 //    /**
 //     * @return Emprunt[] Returns an array of Emprunt objects
 //     */
